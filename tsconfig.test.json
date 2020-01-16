@@ -1,0 +1,14 @@
+{
+  "include": [
+    "src/**/*"
+  ],
+  "compilerOptions": {
+    "target": "es5",
+    "sourceMap": false,
+    "outDir": "__test",
+    "lib": [
+      "es6",
+      "es2016.array.include"
+    ]
+  }
+}
