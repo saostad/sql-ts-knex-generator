@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -40,30 +41,39 @@ var default_1 = /** @class */ (function () {
     }
     default_1.prototype.getAllTables = function (db, schemas) {
         return __awaiter(this, void 0, void 0, function () {
+            var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, db('sqlite_master')
-                            .select('tbl_name AS name')
-                            .whereNot({ tbl_name: 'sqlite_sequence' })
-                            .where({ type: 'table' })
-                            .map(function (t) { return ({ name: t.name, schema: 'main' }); })];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0: return [4 /*yield*/, db("sqlite_master")
+                            .select("tbl_name AS name")
+                            .whereNot({ tbl_name: "sqlite_sequence" })
+                            .where({ type: "table" })];
+                    case 1:
+                        data = _a.sent();
+                        return [2 /*return*/, data.map(function (t) { return ({
+                                name: t.name,
+                                schema: "main"
+                            }); })];
                 }
             });
         });
     };
     default_1.prototype.getAllColumns = function (db, table, schema) {
         return __awaiter(this, void 0, void 0, function () {
+            var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, db.raw("pragma table_info(" + table + ")")
-                            .map(function (c) { return ({
-                            name: c.name,
-                            isNullable: c.notnull === 0,
-                            type: (c.type.includes('(') ? c.type.split('(')[0] : c.type).toLowerCase(),
-                            isOptional: c.dflt != null || c.pk == 1
-                        }); })];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0: return [4 /*yield*/, db.raw("pragma table_info(" + table + ")")];
+                    case 1:
+                        data = _a.sent();
+                        return [2 /*return*/, data.map(function (c) { return ({
+                                name: c.name,
+                                isNullable: c.notnull === 0,
+                                type: (c.type.includes("(")
+                                    ? c.type.split("(")[0]
+                                    : c.type).toLowerCase(),
+                                isOptional: c.dflt != null || c.pk == 1
+                            }); })];
                 }
             });
         });

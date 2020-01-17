@@ -1,4 +1,4 @@
-import * as knex from 'knex';
+import * as knex from "knex";
 /**
  * The configuration file for creating new databases.
  *
@@ -11,8 +11,8 @@ export interface Config extends knex.Config {
     excludedTables?: string[];
     filename?: string;
     interfaceNameFormat?: string;
-    tableNameCasing?: 'pascal' | 'camel';
-    columnNameCasing?: 'pascal' | 'camel';
+    tableNameCasing?: "pascal" | "camel";
+    columnNameCasing?: "pascal" | "camel";
     singularTableNames?: boolean;
     schemaAsNamespace?: boolean;
     schemas?: string[];

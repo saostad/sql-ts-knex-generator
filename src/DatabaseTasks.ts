@@ -19,7 +19,7 @@ export function stringifyDatabase(database: Database, config: Config): string {
     template = fs.readFileSync(config.template, "utf-8");
   } else {
     template = fs.readFileSync(
-      path.join(__dirname, "./template.handlebars"),
+      path.join(__dirname, "templates", "./interfaces.handlebars"),
       "utf-8"
     );
   }

@@ -1,16 +1,14 @@
-# sql-ts
+# sql-ts-knex-generator
 
-[![Build Status](https://travis-ci.org/rmp135/sql-ts.svg?branch=master)](https://travis-ci.org/rmp135/sql-ts)
-
-Generate TypeScript types from a SQL database.
+Generate TypeScript definitions [sql-ts](https://github.com/rmp135/sql-ts) and [knex](https://github.com/knex/knex) query helper functions from database schemas.
 
 Supports the following databases: MySQL, Microsoft SQL Server, SQLite and Postgres.
 
 ## Installation
 
-Install into your project using npm / yarn.
+After you clone the repository in your client
 
-`npm install @rmp135/sql-ts`
+Run `npm install`
 
 Install your relevant SQL driver. Refer to the [knex documentation](http://knexjs.org/#Installation-node) to determine which driver you should install.
 
@@ -22,21 +20,25 @@ The most basic MySQL setup is below, modify as appropriate. Additional options c
 
 ```json
 {
-  "dialect":"mysql",
+  "client": "mssql",
+  "schemas": ["dbo"],
+  "interfaceNameFormat": "${table}",
+  "template": "./dist/templates/interfaces-and-functions.handlebars",
   "connection": {
-    "host": "localhost",
-    "user": "user",
-    "password": "password",
-    "database" : "my_database"
+    "host": "***",
+    "user": "***",
+    "password": "***",
+    "database": "***",
+    "options": {
+      "enableArithAbort": false
+    }
   }
 }
 ```
 
 ## Usage
 
-Run `npx @rmp135/sql-ts` with the path of the configuration file created above.
-
-`npx @rmp135/sql-ts -c ./config.json`
+`node ./bin/sql-ts -c ./config.json`
 
 The file will be exported with the filename `Database.ts` (or with the name specified in the configuration) at the current working directory. Warning: if this file exists, it will be overwritten.
 
@@ -49,7 +51,7 @@ Alternatively, use as a node module, passing the configuration object as the fir
 Retrieves the database schema as a simple object.
 
 ```javascript
-import sqlts from '@rmp135/sql-ts'
+import sqlts from './index'
 
 const config = {
   ...
@@ -63,7 +65,7 @@ const definitions = await sqlts.toObject(config)
 Converts the object returned from `toObject` into a TypeScript definition. This can be used to manipulate the database definitions before they are converted into strings or files, which allows for greater control over the generated typescript.
 
 ```javascript
-import sqlts from '@rmp135/sql-ts'
+import sqlts from './index'
 
 const config = {
   ...
@@ -81,7 +83,7 @@ For those using TypeScript, you can import the Config definition.
 Retrieves the raw string of the definition file.
 
 ```javascript
-import sqlts from '@rmp135/sql-ts'
+import sqlts from './index'
 
 const config = {
   ...
@@ -116,7 +118,11 @@ Excluding a table takes precedence over including it. Specifying a table in both
 {
   "dialect": "...",
   "connection": {},
-  "excludedTables": ["schema1.knex_migrations", "schema1.knex_migrations_lock", "schema2.android_metadata"]
+  "excludedTables": [
+    "schema1.knex_migrations",
+    "schema1.knex_migrations_lock",
+    "schema2.android_metadata"
+  ]
 }
 ```
 
@@ -164,7 +170,7 @@ Specifies the name that the file should be saved as. Defaults to "Database.ts". 
 
 ### interfaceNameFormat
 
-Specifies the pattern that the exported interface names will take. The token "${table}" will be replaced with the table name. Defaults to `${table}Entity`.
+Specifies the pattern that the exported interface names will take. The token "\${table}" will be replaced with the table name. Defaults to `${table}Entity`.
 
 The below will export interfaces with such names as `UserModel` and `LogModel` for tables with names `User` and `Log` respectively.
 
@@ -216,13 +222,12 @@ Removes the "s" from the end of table names before being passed into the name ge
 
 Specifies whether the table schema should be used as a namespace. The functionality differs between database providers. Defaults to `false`.
 
-Provider   | Source
------------|-------------
-Postgres   | The schema that the table belongs to.
-SQL Server | The schema that the table belongs to.
-MySQL      | The database name.
-SQLite     | 'main'
-
+| Provider   | Source                                |
+| ---------- | ------------------------------------- |
+| Postgres   | The schema that the table belongs to. |
+| SQL Server | The schema that the table belongs to. |
+| MySQL      | The database name.                    |
+| SQLite     | 'main'                                |
 
 ```json
 {
@@ -238,7 +243,7 @@ Specifies which schemas to import. This has no effect on SQLite databases. If My
 
 Note for Postgres users: The default schema on Postgres is `public` which is a reserved keyword in TypeScript. You may need to use the `noImplicitUseStrict` flag when transpiling.
 
-This has no effect on SQLite as the concept of schemas do not exist. 
+This has no effect on SQLite as the concept of schemas do not exist.
 
 ```json
 {
@@ -250,7 +255,7 @@ This has no effect on SQLite as the concept of schemas do not exist.
 
 ### additionalProperties
 
-Specifies additional properties to be assigned to the output TypeScript file. Key is in the format `schema.table` and the value is a list of raw strings. 
+Specifies additional properties to be assigned to the output TypeScript file. Key is in the format `schema.table` and the value is a list of raw strings.
 
 ```json
 {
@@ -278,13 +283,13 @@ Specifies the superclass than should be applied to the generated interface. Key 
 
 ### template
 
-Specifies the [handlebars](https://handlebarsjs.com) template to use when creating the output TypeScript file relative to the current working directory. See [dist/template.handlebars](./dist/template.handlebars) for the default template. 
+Specifies the [handlebars](https://handlebarsjs.com) template to use when creating the output TypeScript file relative to the current working directory. See [dist/templates/interfaces.handlebars](./dist/templates/interfaces.handlebars) for the default template.
 
 ```json
 {
   "dialect": "...",
   "connection": {},
-  "template": "./template.handlebars"
+  "template": "./templates/interfaces.handlebars"
 }
 ```
 
@@ -300,10 +305,15 @@ Sample configuration (replace the `HostName` and `DatabaseName` accordingly).
 
 ```json
 {
-    "dialect": "mssql",
-    "connection": {
-        "driver": "msnodesqlv8",
-        "connectionString": "Driver={SQL Server Native Client 10.0};Server=HostName;Database=DatabaseName;Trusted_Connection=yes;"
-    }
+  "dialect": "mssql",
+  "connection": {
+    "driver": "msnodesqlv8",
+    "connectionString": "Driver={SQL Server Native Client 10.0};Server=HostName;Database=DatabaseName;Trusted_Connection=yes;"
+  }
 }
 ```
+
+### Credits:
+
+- [sql-ts](https://github.com/rmp135/sql-ts)
+- [knex](https://github.com/knex/knex)

@@ -1,17 +1,21 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -52,12 +56,12 @@ var default_1 = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        query = db('information_schema.tables')
-                            .select('TABLE_NAME AS name')
-                            .select('TABLE_SCHEMA AS schema')
-                            .whereNotIn('TABLE_SCHEMA', ['information_schema']);
+                        query = db("information_schema.tables")
+                            .select("TABLE_NAME AS name")
+                            .select("TABLE_SCHEMA AS schema")
+                            .whereNotIn("TABLE_SCHEMA", ["information_schema"]);
                         if (schemas.length > 0)
-                            query.whereIn('table_schema', schemas);
+                            query.whereIn("table_schema", schemas);
                         return [4 /*yield*/, query];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -66,16 +70,20 @@ var default_1 = /** @class */ (function () {
     };
     default_1.prototype.getAllColumns = function (db, table, schema) {
         return __awaiter(this, void 0, void 0, function () {
+            var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, db('information_schema.columns')
-                            .select('column_name AS name')
-                            .select(db.raw('(CASE WHEN is_nullable = \'NO\' THEN 0 ELSE 1 END) AS isNullable'))
-                            .select(db.raw('(SELECT CASE WHEN LOCATE(\'auto_increment\', extra) <> 0 OR COLUMN_DEFAULT IS NOT NULL THEN 1 ELSE 0 END) AS isOptional'))
-                            .select('data_type AS type')
-                            .where({ table_name: table, table_schema: schema })
-                            .map(function (c) { return (__assign({}, c, { isNullable: !!c.isNullable, isOptional: c.isOptional === 1 })); })];
-                    case 1: return [2 /*return*/, _a.sent()];
+                    case 0: return [4 /*yield*/, db("information_schema.columns")
+                            .select("column_name AS name")
+                            .select(db.raw("(CASE WHEN is_nullable = 'NO' THEN 0 ELSE 1 END) AS isNullable"))
+                            .select(db.raw("(SELECT CASE WHEN LOCATE('auto_increment', extra) <> 0 OR COLUMN_DEFAULT IS NOT NULL THEN 1 ELSE 0 END) AS isOptional"))
+                            .select("data_type AS type")
+                            .where({ table_name: table, table_schema: schema })];
+                    case 1:
+                        data = _a.sent();
+                        return [2 /*return*/, data.map(function (c) {
+                                return (__assign(__assign({}, c), { isNullable: !!c.isNullable, isOptional: c.isOptional === 1 }));
+                            })];
                 }
             });
         });

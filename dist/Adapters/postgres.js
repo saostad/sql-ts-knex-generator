@@ -1,17 +1,21 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -52,18 +56,17 @@ var default_1 = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        query = db('pg_catalog.pg_tables')
-                            .select('schemaname AS schema')
-                            .select('tablename AS name')
+                        query = db("pg_catalog.pg_tables")
+                            .select("schemaname AS schema")
+                            .select("tablename AS name")
                             .union(function (qb) {
-                            qb
-                                .select('schemaname AS schema')
-                                .select('matviewname AS name')
-                                .from('pg_catalog.pg_matviews');
+                            qb.select("schemaname AS schema")
+                                .select("matviewname AS name")
+                                .from("pg_catalog.pg_matviews");
                         })
-                            .whereNotIn('schemaname', ['pg_catalog', 'information_schema']);
+                            .whereNotIn("schemaname", ["pg_catalog", "information_schema"]);
                         if (schemas.length > 0)
-                            query.whereIn('schemaname', schemas);
+                            query.whereIn("schemaname", schemas);
                         return [4 /*yield*/, query];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -72,22 +75,26 @@ var default_1 = /** @class */ (function () {
     };
     default_1.prototype.getAllColumns = function (db, table, schema) {
         return __awaiter(this, void 0, void 0, function () {
+            var data;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, db
-                            .select('pg_attribute.attname AS name')
-                            .select('pg_namespace.nspname AS schema')
-                            .select(db.raw('pg_catalog.format_type(pg_attribute.atttypid, null) AS type'))
-                            .select('pg_attribute.attnotnull AS notNullable')
-                            .select('pg_attribute.atthasdef AS hasDefault')
-                            .select('pg_class.relname AS table')
-                            .from('pg_attribute')
-                            .join('pg_class', 'pg_attribute.attrelid', 'pg_class.oid')
-                            .join('pg_namespace', 'pg_class.relnamespace', 'pg_namespace.oid')
-                            .where({ 'pg_class.relname': table, 'pg_namespace.nspname': schema })
-                            .where('pg_attribute.attnum', '>', 0)
-                            .map(function (c) { return (__assign({}, c, { isNullable: !c.notNullable, isOptional: c.hasDefault })); })];
-                    case 1: return [2 /*return*/, _a.sent()];
+                            .select("pg_attribute.attname AS name")
+                            .select("pg_namespace.nspname AS schema")
+                            .select(db.raw("pg_catalog.format_type(pg_attribute.atttypid, null) AS type"))
+                            .select("pg_attribute.attnotnull AS notNullable")
+                            .select("pg_attribute.atthasdef AS hasDefault")
+                            .select("pg_class.relname AS table")
+                            .from("pg_attribute")
+                            .join("pg_class", "pg_attribute.attrelid", "pg_class.oid")
+                            .join("pg_namespace", "pg_class.relnamespace", "pg_namespace.oid")
+                            .where({ "pg_class.relname": table, "pg_namespace.nspname": schema })
+                            .where("pg_attribute.attnum", ">", 0)];
+                    case 1:
+                        data = _a.sent();
+                        return [2 /*return*/, data.map(function (c) {
+                                return (__assign(__assign({}, c), { isNullable: !c.notNullable, isOptional: c.hasDefault }));
+                            })];
                 }
             });
         });

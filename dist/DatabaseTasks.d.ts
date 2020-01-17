@@ -1,4 +1,4 @@
-import { Config, Database, DecoratedDatabase } from './Typings';
+import { Config, Database, DecoratedDatabase } from "./Typings";
 /**
  * Converts a Database definition to TypeScript.
  *
