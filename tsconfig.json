@@ -1,18 +1,11 @@
 {
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "src/**/*.spec.*"
-  ],
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.spec.*", "src/generated"],
   "compilerOptions": {
     "target": "es5",
     "declaration": true,
     "sourceMap": false,
     "outDir": "dist",
-    "lib": [
-      "es6",
-      "es2016.array.include"
-    ]
+    "lib": ["es6", "es2016.array.include"]
   }
 }

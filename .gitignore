@@ -4,3 +4,5 @@ __test
 yarn-error.log
 config.json
 Database.ts
+generated
+logs
