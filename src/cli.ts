@@ -1,4 +1,3 @@
-import { buildDatabase } from "./DatabaseFactory";
 import * as fs from "fs";
 import * as yargs from "yargs";
 import * as path from "path";
