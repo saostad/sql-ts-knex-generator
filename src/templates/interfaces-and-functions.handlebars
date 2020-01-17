@@ -25,7 +25,7 @@ export async function get{{interfaceName}}BasicFields(client:Knex){
 
   return client
   .from<{{interfaceName}}>("{{interfaceName}}")
-  .select<Get{{interfaceName}}BasicFieldsOutput>(
+  .select<Get{{interfaceName}}BasicFieldsOutput[]>(
     {{#each columns}}
     {{#unless nullable}} 
     "{{propertyName}}",
