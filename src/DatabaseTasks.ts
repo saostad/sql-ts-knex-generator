@@ -14,12 +14,15 @@ import * as ColumnTasks from "./ColumnTasks";
  * @returns A TypeScript definition, optionally wrapped in a namespace.
  */
 export function stringifyDatabase(database: Database, config: Config): string {
-  let template = fs.readFileSync(
-    path.join(__dirname, "./template.handlebars"),
-    "utf-8"
-  );
-  if (config.template !== undefined)
+  let template: string;
+  if (config.template !== undefined) {
     template = fs.readFileSync(config.template, "utf-8");
+  } else {
+    template = fs.readFileSync(
+      path.join(__dirname, "./template.handlebars"),
+      "utf-8"
+    );
+  }
   const compiler = handlebars.compile(template);
   database.tables.sort((tableA, tableB) =>
     tableA.name.localeCompare(tableB.name)
