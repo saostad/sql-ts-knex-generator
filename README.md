@@ -12,11 +12,11 @@ Run `npm install`
 
 Install your relevant SQL driver. Refer to the [knex documentation](http://knexjs.org/#Installation-node) to determine which driver you should install.
 
-For example `npm install mysql`.
+For example `npm install mssql`.
 
 Create a configuration file, for example `mysql.json`. This will mirror connection details from knex. The `dialect` or `client` property will determine the SQL type.
 
-The most basic MySQL setup is below, modify as appropriate. Additional options can be applied by referring to the [Config](#config).
+The most basic MSSQL setup is below, modify as appropriate. Additional options can be applied by referring to the [Config](#config).
 
 ```json
 {
