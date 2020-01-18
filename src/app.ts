@@ -11,6 +11,8 @@ const config: Config = {
   schemas: ["dbo"],
   interfaceNameFormat: "${table}",
   template: "./dist/templates/interfaces-and-functions.handlebars",
+  schemaAsNamespace: false,
+  tableAsNamespace: true,
   connection: {
     host: "KISQL03.ki.local",
     user: "api_gateway",

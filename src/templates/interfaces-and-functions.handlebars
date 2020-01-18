@@ -1,5 +1,5 @@
 {{#*inline "tablePartial"}}
-export interface {{interfaceName}} {{#if extends}}extends {{extends}} {{/if}}{
+export interface {{interfaceName}} {
   {{#each additionalProperties as |prop|}}
   {{prop}}
   {{/each}}
@@ -8,12 +8,33 @@ export interface {{interfaceName}} {{#if extends}}extends {{extends}} {{/if}}{
   {{/each}}
 }
 {{/inline}}
-{{#*inline "funcAllFieldsPartial"}}
+{{#*inline "funcGetAllFieldsPartial"}}
 export async function get{{interfaceName}}AllFields(client:Knex){
   return client<{{interfaceName}}>("{{interfaceName}}")
 }
 {{/inline}}
-{{#*inline "funcBasicFieldsPartial"}}
+{{#*inline "funcGetBasicFieldsPartial"}}
+export async function get{{interfaceName}}BasicFields(client:Knex){
+  type Get{{interfaceName}}BasicFieldsOutput = {
+    {{#each columns}}
+    {{#unless nullable}} 
+    "{{propertyName}}"{{#if optional}}?{{/if}}: {{propertyType}} {{#if nullable}}| null {{/if}}
+    {{/unless}}
+    {{/each}}
+  }
+
+  return client
+  .from<{{interfaceName}}>("{{interfaceName}}")
+  .select<Get{{interfaceName}}BasicFieldsOutput[]>(
+    {{#each columns}}
+    {{#unless nullable}} 
+    "{{propertyName}}",
+    {{/unless}}
+    {{/each}}
+  )
+}
+{{/inline}}
+{{#*inline "funcGetBasicFieldsPartial"}}
 export async function get{{interfaceName}}BasicFields(client:Knex){
   type Get{{interfaceName}}BasicFieldsOutput = {
     {{#each columns}}
@@ -43,20 +64,18 @@ export async function get{{interfaceName}}BasicFields(client:Knex){
 
 import Knex from 'knex';
 
-{{#if config.schemaAsNamespace}}
-{{#each grouped as |tables key|}}
-export namespace {{key}} {
+{{#if config.tableAsNamespace}}
 {{#each tables as |table|}}
+export namespace {{table.name}} {
   {{> tablePartial table}}  
-  {{> funcAllFieldsPartial table}}
-  {{> funcBasicFieldsPartial table}}
-{{/each}}
+  {{> funcGetAllFieldsPartial table}}
+  {{> funcGetBasicFieldsPartial table}}
 {{/each}}
 }
 {{else}}
 {{#each tables as |table|}}
 {{> tablePartial table}}
-{{> funcAllFieldsPartial table}}
-{{> funcBasicFieldsPartial table}}
+{{> funcGetAllFieldsPartial table}}
+{{> funcGetBasicFieldsPartial table}}
 {{/each}}
 {{/if}}
