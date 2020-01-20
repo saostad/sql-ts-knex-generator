@@ -1,6 +1,6 @@
 # sql-ts-knex-generator
 
-Generate TypeScript definitions [sql-ts](https://github.com/rmp135/sql-ts) and CRUD [knex](https://github.com/knex/knex) query helper functions from database schemas.
+Combine Abilities of Generate TypeScript definitions [sql-ts](https://github.com/rmp135/sql-ts) and CRUD [knex](https://github.com/knex/knex) query helper functions from database schemas.
 
 Supports the following databases: MySQL, Microsoft SQL Server, SQLite and Postgres.
 
