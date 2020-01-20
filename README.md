@@ -42,7 +42,7 @@ The most basic MSSQL setup is below, modify as appropriate. Additional options c
 
 ## Usage
 
-`node ./bin/sql-ts -c ./config.json`
+`node ./bin/sql-ts-knex-generator -c ./config.json`
 
 The file will be exported with the filename `Database.ts` (or with the name specified in the configuration) at the current working directory. Warning: if this file exists, it will be overwritten.
 
