@@ -1,4 +1,4 @@
-{{#*inline "tablePartial"}}
+{{#*inline "interfacePartial"}}
 export interface {{interfaceName}} {
   {{#each additionalProperties as |prop|}}
   {{prop}}
@@ -9,12 +9,12 @@ export interface {{interfaceName}} {
 }
 {{/inline}}
 {{#*inline "funcGetAllFieldsPartial"}}
-export async function get{{interfaceName}}AllFields(client:Knex){
+export async function get{{interfaceName}}AllFields(client: Knex){
   return client<{{interfaceName}}>("{{interfaceName}}")
 }
 {{/inline}}
 {{#*inline "funcGetBasicFieldsPartial"}}
-export async function get{{interfaceName}}BasicFields(client:Knex){
+export async function get{{interfaceName}}BasicFields(client: Knex){
   type Get{{interfaceName}}BasicFieldsOutput = {
     {{#each columns}}
     {{#unless nullable}} 
@@ -34,25 +34,35 @@ export async function get{{interfaceName}}BasicFields(client:Knex){
   )
 }
 {{/inline}}
-{{#*inline "funcGetBasicFieldsPartial"}}
-export async function get{{interfaceName}}BasicFields(client:Knex){
-  type Get{{interfaceName}}BasicFieldsOutput = {
-    {{#each columns}}
-    {{#unless nullable}} 
-    "{{propertyName}}"{{#if optional}}?{{/if}}: {{propertyType}} {{#if nullable}}| null {{/if}}
-    {{/unless}}
-    {{/each}}
-  }
-
-  return client
-  .from<{{interfaceName}}>("{{interfaceName}}")
-  .select<Get{{interfaceName}}BasicFieldsOutput[]>(
-    {{#each columns}}
-    {{#unless nullable}} 
-    "{{propertyName}}",
-    {{/unless}}
-    {{/each}}
-  )
+{{#*inline "funcAddPartial"}}
+export async function add{{interfaceName}}(client: Knex, data: {{interfaceName}}){
+  return client<{{interfaceName}}>("{{interfaceName}}")
+    .insert(data)
+    .returning([
+      {{#each columns}}
+      {{#unless nullable}} 
+      "{{propertyName}}",
+      {{/unless}}
+      {{/each}}
+    ]);
+}
+{{/inline}}
+{{#*inline "funcDeletePartial"}}
+export async function delete{{interfaceName}}(client: Knex, where: Partial<{{interfaceName}}>){
+  return client<{{interfaceName}}>("{{interfaceName}}")
+    .where(where)
+    .del()
+}
+{{/inline}}
+{{#*inline "funcUpdatePartial"}}
+export async function update{{interfaceName}}(
+  client: Knex, 
+  data: Partial<{{interfaceName}}>, 
+  where: Partial<{{interfaceName}}>
+  ) {
+  return client<{{interfaceName}}>("{{interfaceName}}")
+    .where(where)
+    .update(data)
 }
 {{/inline}}
 /* eslint-disable @typescript-eslint/camelcase */
@@ -67,15 +77,21 @@ import Knex from 'knex';
 {{#if config.tableAsNamespace}}
 {{#each tables as |table|}}
 export namespace {{table.name}} {
-  {{> tablePartial table}}  
+  {{> interfacePartial table}}  
   {{> funcGetAllFieldsPartial table}}
   {{> funcGetBasicFieldsPartial table}}
+  {{> funcAddPartial table}}
+  {{> funcDeletePartial table}}
+  {{> funcUpdatePartial table}}
 {{/each}}
 }
 {{else}}
 {{#each tables as |table|}}
-{{> tablePartial table}}
+{{> interfacePartial table}}
 {{> funcGetAllFieldsPartial table}}
 {{> funcGetBasicFieldsPartial table}}
+{{> funcAddPartial table}}
+{{> funcDeletePartial table}}
+{{> funcUpdatePartial table}}
 {{/each}}
 {{/if}}
