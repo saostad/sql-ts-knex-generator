@@ -1,4 +1,4 @@
-import { Config, Database } from './Typings';
+import { Config, Database } from "./Typings";
 /**
  * Builds a Database and generates its definitions.
  *

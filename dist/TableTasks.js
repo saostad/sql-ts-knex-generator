@@ -62,7 +62,9 @@ function getAllTables(db, config) {
                     return [4 /*yield*/, adapter.getAllTables(db, schemas)];
                 case 1:
                     allTables = (_a.sent())
-                        .filter(function (table) { return tables.length == 0 || tables.includes(table.schema + "." + table.name); })
+                        .filter(function (table) {
+                        return tables.length == 0 || tables.includes(table.schema + "." + table.name);
+                    })
                         .filter(function (table) { return !excludedTables.includes(table.schema + "." + table.name); });
                     return [4 /*yield*/, Promise.all(allTables.map(function (table) { return __awaiter(_this, void 0, void 0, function () {
                             var _a;
@@ -95,12 +97,12 @@ exports.getAllTables = getAllTables;
  * @returns
  */
 function generateInterfaceName(name, config) {
-    var interfaceNamePattern = config.interfaceNameFormat || '${table}Entity';
-    name = name.replace(/ /g, '_');
+    var interfaceNamePattern = config.interfaceNameFormat || "${table}Entity";
+    name = name.replace(/ /g, "_");
     name = SharedTasks.convertCase(name, config.tableNameCasing);
     if (config.singularTableNames && name[name.length - 1] == "s") {
         name = name.substr(0, name.length - 1);
     }
-    return interfaceNamePattern.replace('${table}', name);
+    return interfaceNamePattern.replace("${table}", name);
 }
 exports.generateInterfaceName = generateInterfaceName;

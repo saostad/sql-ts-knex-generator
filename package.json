@@ -1,6 +1,6 @@
 {
   "name": "sql-ts-knex-generator",
-  "version": "1.4.0-beta.0",
+  "version": "0.1.0",
   "main": "./dist/index.js",
   "license": "MIT",
   "description": "Generate TypeScript definitions (https://github.com/rmp135/sql-ts) and Knex.js(https://github.com/knex/knex) query helper functions from database schemas.",

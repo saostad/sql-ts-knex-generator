@@ -40,6 +40,7 @@ var fs = require("fs");
 var yargs = require("yargs");
 var path = require("path");
 var index_1 = require("./index");
+var DatabaseTasks = require("./DatabaseTasks");
 var args = yargs(process.argv)
     .alias("c", "config")
     .describe("c", "Config file.")
@@ -47,17 +48,39 @@ var args = yargs(process.argv)
 var configPath = path.join(process.cwd(), args.config);
 var config = JSON.parse(fs.readFileSync(configPath, "utf8"));
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var output, fileName, outFile;
+    var decoratedDatabase_1, eachTable, pathDir_1, compiler, indexContent, filePath, output, fileName, outFile;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, index_1.default.toTypeScript(config)];
+            case 0:
+                if (!config.separateTableFile) return [3 /*break*/, 2];
+                return [4 /*yield*/, index_1.toObject(config)];
             case 1:
+                decoratedDatabase_1 = _a.sent();
+                /**Create Interface and Functions in separate file */
+                config.template = path.join(__dirname, "templates", "interfaces-and-functions.handlebars");
+                eachTable = decoratedDatabase_1.tables.map(function (el) {
+                    return DatabaseTasks.stringifyDatabase({ tables: [el] }, config);
+                });
+                pathDir_1 = path.join(__dirname, "generated");
+                eachTable.forEach(function (el, index) {
+                    var filePath = path.join(pathDir_1, decoratedDatabase_1.tables[index].interfaceName + ".ts");
+                    fs.writeFileSync(filePath, el);
+                });
+                compiler = Handlebars.compile("{{#each tables as |table|}}\n      export * from \"./{{table.name}}\";\n      {{/each}}");
+                indexContent = compiler({ tables: decoratedDatabase_1.tables });
+                filePath = path.join(pathDir_1, "index.ts");
+                fs.writeFileSync(filePath, indexContent);
+                console.log("files written in " + pathDir_1);
+                return [3 /*break*/, 4];
+            case 2: return [4 /*yield*/, index_1.default.toTypeScript(config)];
+            case 3:
                 output = _a.sent();
                 fileName = (config.filename || "Database") + ".ts";
                 outFile = path.join(process.cwd(), fileName);
                 fs.writeFileSync(outFile, output);
                 console.log("Definition file written as " + outFile);
-                return [2 /*return*/];
+                _a.label = 4;
+            case 4: return [2 /*return*/];
         }
     });
 }); })();
