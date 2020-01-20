@@ -1,10 +1,10 @@
 {
   "name": "sql-ts-knex-generator",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "main": "./dist/index.js",
   "license": "MIT",
   "description": "Generate TypeScript definitions (https://github.com/rmp135/sql-ts) and Knex.js(https://github.com/knex/knex) query helper functions from database schemas.",
-  "bin": "./bin/sql-ts",
+  "bin": "./bin/sql-ts-knex-generator",
   "types": "dist/index.d.ts",
   "repository": {
     "url": "https://github.com/saostad/sql-ts-knex-generator",
@@ -15,6 +15,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "prepublishOnly": "npm run build",
     "prebuild": "copyfiles -f ./src/templates/*.handlebars ./dist/templates/",
     "pretest": "tsc -p tsconfig.test.json",
     "test": "jasmine ./__test/{**,}/*.spec.js"
