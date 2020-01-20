@@ -41,6 +41,7 @@ var yargs = require("yargs");
 var path = require("path");
 var index_1 = require("./index");
 var DatabaseTasks = require("./DatabaseTasks");
+var Handlebars = require("handlebars");
 var args = yargs(process.argv)
     .alias("c", "config")
     .describe("c", "Config file.")
@@ -56,20 +57,29 @@ var config = JSON.parse(fs.readFileSync(configPath, "utf8"));
                 return [4 /*yield*/, index_1.toObject(config)];
             case 1:
                 decoratedDatabase_1 = _a.sent();
-                /**Create Interface and Functions in separate file */
-                config.template = path.join(__dirname, "templates", "interfaces-and-functions.handlebars");
                 eachTable = decoratedDatabase_1.tables.map(function (el) {
                     return DatabaseTasks.stringifyDatabase({ tables: [el] }, config);
                 });
-                pathDir_1 = path.join(__dirname, "generated");
+                pathDir_1 = path.join(process.cwd(), "generated");
+                /**create directory if not exist */
+                try {
+                    fs.mkdirSync(pathDir_1);
+                }
+                catch (error) {
+                    if (error.code !== "EEXIST") {
+                        console.log(error);
+                    }
+                }
                 eachTable.forEach(function (el, index) {
-                    var filePath = path.join(pathDir_1, decoratedDatabase_1.tables[index].interfaceName + ".ts");
+                    var filePath = path.join(pathDir_1, decoratedDatabase_1.tables[index].name + ".ts");
                     fs.writeFileSync(filePath, el);
                 });
-                compiler = Handlebars.compile("{{#each tables as |table|}}\n      export * from \"./{{table.name}}\";\n      {{/each}}");
-                indexContent = compiler({ tables: decoratedDatabase_1.tables });
-                filePath = path.join(pathDir_1, "index.ts");
-                fs.writeFileSync(filePath, indexContent);
+                if (config.createIndexFile) {
+                    compiler = Handlebars.compile("{{#each tables as |table|}}\n        export * from \"./{{table.name}}\";\n        {{/each}}");
+                    indexContent = compiler({ tables: decoratedDatabase_1.tables });
+                    filePath = path.join(pathDir_1, "index.ts");
+                    fs.writeFileSync(filePath, indexContent);
+                }
                 console.log("files written in " + pathDir_1);
                 return [3 /*break*/, 4];
             case 2: return [4 /*yield*/, index_1.default.toTypeScript(config)];

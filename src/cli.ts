@@ -4,6 +4,7 @@ import * as path from "path";
 import sqlts, { Config, toObject } from "./index";
 import * as DatabaseTasks from "./DatabaseTasks";
 import { DecoratedTable } from "./Typings";
+import * as Handlebars from "handlebars";
 
 const args = yargs(process.argv)
   .alias("c", "config")
@@ -17,33 +18,38 @@ const config = JSON.parse(fs.readFileSync(configPath, "utf8")) as Config;
   if (config.separateTableFile) {
     const decoratedDatabase = await toObject(config);
 
-    /**Create Interface and Functions in separate file */
-
-    config.template = path.join(
-      __dirname,
-      "templates",
-      "interfaces-and-functions.handlebars"
-    );
     const eachTable = decoratedDatabase.tables.map(el =>
       DatabaseTasks.stringifyDatabase({ tables: [el] }, config)
     );
-    const pathDir = path.join(__dirname, "generated");
+    const pathDir = path.join(process.cwd(), "generated");
+
+    /**create directory if not exist */
+    try {
+      fs.mkdirSync(pathDir);
+    } catch (error) {
+      if (error.code !== "EEXIST") {
+        console.log(error);
+      }
+    }
+
     eachTable.forEach((el, index) => {
       const filePath = path.join(
         pathDir,
-        `${decoratedDatabase.tables[index].interfaceName}.ts`
+        `${decoratedDatabase.tables[index].name}.ts`
       );
 
       fs.writeFileSync(filePath, el);
     });
-    const compiler = Handlebars.compile<{ tables: DecoratedTable[] }>(
-      `{{#each tables as |table|}}
-      export * from "./{{table.name}}";
-      {{/each}}`
-    );
-    const indexContent = compiler({ tables: decoratedDatabase.tables });
-    const filePath = path.join(pathDir, `index.ts`);
-    fs.writeFileSync(filePath, indexContent);
+    if (config.createIndexFile) {
+      const compiler = Handlebars.compile<{ tables: DecoratedTable[] }>(
+        `{{#each tables as |table|}}
+        export * from "./{{table.name}}";
+        {{/each}}`
+      );
+      const indexContent = compiler({ tables: decoratedDatabase.tables });
+      const filePath = path.join(pathDir, `index.ts`);
+      fs.writeFileSync(filePath, indexContent);
+    }
     console.log(`files written in ${pathDir}`);
   } else {
     const output = await sqlts.toTypeScript(config);

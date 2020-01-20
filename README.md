@@ -22,8 +22,12 @@ The most basic MSSQL setup is below, modify as appropriate. Additional options c
 {
   "client": "mssql",
   "schemas": ["dbo"],
-  "interfaceNameFormat": "${table}",
+  "interfaceNameFormat": "${table}Entity",
   "template": "./dist/templates/interfaces-and-functions.handlebars",
+  "schemaAsNamespace": false,
+  "tableAsNamespace": true,
+  "createIndexFile": true,
+  "separateTableFile": true,
   "connection": {
     "host": "***",
     "user": "***",
@@ -292,6 +296,21 @@ Specifies the [handlebars](https://handlebarsjs.com) template to use when creati
   "template": "./templates/interfaces.handlebars"
 }
 ```
+
+### separateTableFile
+
+generate separate file for each table
+this is useful when generating CRUD functions alongside table interface in separate file
+
+### tableAsNamespace
+
+use table name as name space.
+this is useful when generating CRUD functions alongside table interface in separate file
+
+### createIndexFile
+
+generate index.ts file and export all generated table files
+this is useful when generating CRUD functions alongside table interface in separate file
 
 ## Bespoke Configuration
 
