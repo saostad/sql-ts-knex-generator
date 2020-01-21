@@ -6,6 +6,10 @@ Supports the following databases: MySQL, Microsoft SQL Server, SQLite and Postgr
 
 ## Installation
 
+`npm install sql-ts-knex-generator`
+
+OR
+
 After you clone the repository in your client
 
 Run `npm install`
@@ -42,9 +46,18 @@ The most basic MSSQL setup is below, modify as appropriate. Additional options c
 
 ## Usage
 
+in root of your project after you installed your preferred driver:
+
+`npx sql-ts-knex-generator -c ./config.json`
+
+OR
+
 `node ./bin/sql-ts-knex-generator -c ./config.json`
 
-The file will be exported with the filename `Database.ts` (or with the name specified in the configuration) at the current working directory. Warning: if this file exists, it will be overwritten.
+Based on your config file:
+
+- It a file will be exported with the filename `Database.ts` (or with the name specified in the configuration) at the current working directory. Warning: if this file exists, it will be overwritten.
+- It will generate a directory named `generated` in current working directory and put all files on that.
 
 ---
 
