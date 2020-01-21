@@ -27,7 +27,7 @@ The most basic MSSQL setup is below, modify as appropriate. Additional options c
   "client": "mssql",
   "schemas": ["dbo"],
   "interfaceNameFormat": "${table}Entity",
-  "template": "./dist/templates/interfaces-and-functions.handlebars",
+  "template": "node_modules/sql-ts-knex-generator/dist/templates/interfaces-and-functions.handlebars",
   "schemaAsNamespace": false,
   "tableAsNamespace": true,
   "createIndexFile": true,
@@ -47,10 +47,6 @@ The most basic MSSQL setup is below, modify as appropriate. Additional options c
 ## Usage
 
 in root of your project after you installed your preferred driver:
-
-`npx sql-ts-knex-generator -c ./config.json`
-
-OR
 
 `node ./bin/sql-ts-knex-generator -c ./config.json`
 
