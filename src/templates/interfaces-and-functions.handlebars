@@ -9,12 +9,34 @@ export interface {{interfaceName}} {
 }
 {{/inline}}
 {{#*inline "funcGetAllFieldsPartial"}}
-export async function get{{name}}AllFields(client: Knex){
-  return client<{{interfaceName}}>("{{name}}")
+interface GetDataInput {
+  client: Knex;
+  where?: Partial<{{interfaceName}}>;
+  orderBy?: Array<
+    keyof {{interfaceName}} | { column: keyof {{interfaceName}}; order?: "asc" | "desc" }
+  >;
+}
+export async function get{{name}}AllFields({
+  client,
+  where,
+  orderBy,
+}: GetDataInput){
+const query = client<{{interfaceName}}>("{{name}}");
+  if (where) {
+    query.where(where);
+  }
+  if (orderBy) {
+    query.orderBy(orderBy);
+  }
+  return query;
 }
 {{/inline}}
 {{#*inline "funcGetBasicFieldsPartial"}}
-export async function get{{name}}BasicFields(client: Knex){
+export async function get{{name}}BasicFields({
+    client,
+    where,
+    orderBy,
+  }: GetDataInput) {
   type Get{{name}}BasicFieldsOutput = {
     {{#each columns}}
     {{#unless nullable}} 
@@ -23,7 +45,7 @@ export async function get{{name}}BasicFields(client: Knex){
     {{/each}}
   }
 
-  return client
+  const query = client
   .from<{{interfaceName}}>("{{name}}")
   .select<Get{{name}}BasicFieldsOutput[]>(
     {{#each columns}}
@@ -32,10 +54,22 @@ export async function get{{name}}BasicFields(client: Knex){
     {{/unless}}
     {{/each}}
   )
+
+  if (where) {
+    query.where(where);
+  }
+  if (orderBy) {
+    query.orderBy(orderBy);
+  }
+  return query;
 }
 {{/inline}}
 {{#*inline "funcAddPartial"}}
-export async function add{{name}}(client: Knex, data: {{interfaceName}}){
+interface AddFnInput {
+  client: Knex;
+  data: {{interfaceName}};
+}
+export async function add{{name}} ( {client, data}: AddFnInput){
   return client<{{interfaceName}}>("{{name}}")
     .insert(data)
     .returning([
@@ -48,18 +82,23 @@ export async function add{{name}}(client: Knex, data: {{interfaceName}}){
 }
 {{/inline}}
 {{#*inline "funcDeletePartial"}}
-export async function delete{{name}}(client: Knex, where: Partial<{{interfaceName}}>){
+interface DeleteFnInput {
+  client: Knex;
+  where: Partial<{{interfaceName}}>;
+}
+export async function delete{{name}} ( {client, where}: DeleteFnInput){
   return client<{{interfaceName}}>("{{name}}")
     .where(where)
     .del()
 }
 {{/inline}}
 {{#*inline "funcUpdatePartial"}}
-export async function update{{name}}(
-  client: Knex, 
-  data: Partial<{{interfaceName}}>, 
-  where: Partial<{{interfaceName}}>
-  ) {
+interface UpdateFnInput {
+  client: Knex;
+  data: Partial<{{interfaceName}}>;
+  where: Partial<{{interfaceName}}>;
+}
+export async function update{{name}} ({client, data, where}: UpdateFnInput) {
   return client<{{interfaceName}}>("{{name}}")
     .where(where)
     .update(data)
