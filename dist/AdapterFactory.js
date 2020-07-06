@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.buildAdapter = void 0;
 /**
  * Returns an AdapterInterface that matches the dialect.
  *
