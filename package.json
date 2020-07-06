@@ -1,6 +1,6 @@
 {
   "name": "sql-ts-knex-generator",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "./dist/index.js",
   "license": "MIT",
   "description": "Generate TypeScript definitions (https://github.com/rmp135/sql-ts) and Knex.js(https://github.com/knex/knex) query helper functions from database schemas.",
@@ -28,26 +28,26 @@
     "test": "jasmine ./__test/{**,}/*.spec.js"
   },
   "dependencies": {
-    "handlebars": "^4.7.3",
-    "knex": "^0.20.10",
-    "yargs": "^15.1.0"
+    "handlebars": "^4.7.6",
+    "knex": "^0.21.1",
+    "yargs": "^15.4.0"
   },
   "devDependencies": {
     "@types/handlebars": "^4.0.39",
-    "@types/jasmine": "^3.5.7",
+    "@types/jasmine": "^3.5.11",
     "@types/knex": "^0.16.1",
     "@types/rewire": "^2.5.28",
-    "@types/yargs": "^15.0.4",
-    "@typescript-eslint/eslint-plugin": "^2.22.0",
-    "@typescript-eslint/parser": "^2.22.0",
-    "copyfiles": "^2.2.0",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "fast-node-logger": "^1.3.2",
+    "@types/yargs": "^15.0.5",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
+    "copyfiles": "^2.3.0",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "fast-node-logger": "^1.4.2",
     "jasmine": "^3.1.0",
-    "prettier": "^1.19.1",
-    "rewire": "^4.0.1",
-    "typescript": "^3.8.3"
+    "prettier": "^2.0.5",
+    "rewire": "^5.0.0",
+    "typescript": "^3.9.6"
   }
 }
