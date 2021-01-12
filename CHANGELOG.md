@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.5.1](https://github.com/saostad/sql-ts-knex-generator/compare/v1.5.0...v1.5.1)
+
+> 12 January 2021
+
+- fix: show vulnerability scan result in console insteade of breaking the publish script [`e21433e`](https://github.com/saostad/sql-ts-knex-generator/commit/e21433e9391b0ea244df0681943890e1b67440f4)
+- doc: change log [`aee242a`](https://github.com/saostad/sql-ts-knex-generator/commit/aee242a20fabc0d4369cf72d2263bd4d653acb77)
+- vulnerability scan added to publish script [`660547a`](https://github.com/saostad/sql-ts-knex-generator/commit/660547af8868ea731a89330728f1a848914368f0)
+
 #### [v1.5.0](https://github.com/saostad/sql-ts-knex-generator/compare/1.4.0-beta.0...v1.5.0)
 
 > 12 January 2021
