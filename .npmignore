@@ -1,6 +1,8 @@
-.travis.yml
 .npmrc
 .env
-config.json
+*.log
+docs
 generated
-*.ts
+/src/**/*.*
+/compile/**
+obfuscated

@@ -1,17 +1,42 @@
 {
   "name": "sql-ts-knex-generator",
-  "version": "0.1.9",
+  "version": "0.2.0-beta01",
   "main": "./dist/index.js",
-  "license": "MIT",
-  "description": "Generate TypeScript definitions (https://github.com/rmp135/sql-ts) and Knex.js(https://github.com/knex/knex) query helper functions from database schemas.",
+  "description": "A simple command line tool to generate typescript CRUD operations from database schemas.",
   "bin": "./bin/sql-ts-knex-generator",
   "types": "dist/index.d.ts",
   "repository": {
     "url": "https://github.com/saostad/sql-ts-knex-generator",
     "type": "git"
   },
-  "author": {
-    "name": "Saeid Ostad"
+  "author": "Saeid Ostad",
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --check \"src/**/*.ts\" --write",
+    "lint": "eslint --ext \".ts,.js\" src --quiet",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "gen-docs": "typedoc src/index.ts",
+    "postgen-docs": "node ./config/github.js",
+    "tag": "node ./config/tag.js",
+    "auto-changelog": "auto-changelog --hide-credit --breaking-pattern \"breaking:\"",
+    "gen-changelog": "npm run auto-changelog && git add CHANGELOG.md && git commit -m \"doc: change log\"",
+    "tsc": "tsc",
+    "tsc:watch": "tsc --watch",
+    "vulnerability-scan": "snyk test",
+    "prepublishOnly": "npm-run-all -s tsc gen-docs",
+    "postpublish": "npm-run-all -s tag gen-changelog",
+    "obfuscate": "javascript-obfuscator ./dist --output ./obfuscated --compact true --ignore-require-imports true",
+    "precompile": "npm-run-all -s tsc obfuscate",
+    "compile": "pkg ./obfuscated/index.js --out-path ./compile --options max_old_space_size=4096",
+    "predocker:build": "tsc",
+    "docker:build": "node ./config/docker-build.js",
+    "inspect": "node --inspect --unhandled-rejections=strict dist/index.js",
+    "predev:scripts": "npm-run-all -s tsc",
+    "dev:scripts": "npm-run-all -p tsc:watch inspect",
+    "dev": "set NODE_ENV=development&& nodemon --watch dist --exec \"npm run dev:scripts\"",
+    "start": "npm run dev",
+    "prod": "set NODE_ENV=production&& node --trace-warnings --unhandled-rejections=strict dist/index.js"
   },
   "keywords": [
     "knex",
@@ -20,34 +45,35 @@
     "generator",
     "CRUD"
   ],
-  "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run build",
-    "prebuild": "copyfiles -f ./src/templates/*.handlebars ./dist/templates/",
-    "pretest": "tsc -p tsconfig.test.json",
-    "test": "jasmine ./__test/{**,}/*.spec.js"
-  },
-  "dependencies": {
-    "handlebars": "^4.7.6",
-    "knex": "^0.21.1",
-    "yargs": "^15.4.0"
+  "nodemonConfig": {
+    "ignore": [
+      "test/*",
+      "docs/*"
+    ],
+    "delay": "1000"
   },
   "devDependencies": {
-    "@types/handlebars": "^4.0.39",
-    "@types/jasmine": "^3.5.11",
-    "@types/knex": "^0.16.1",
-    "@types/rewire": "^2.5.28",
-    "@types/yargs": "^15.0.5",
-    "@typescript-eslint/eslint-plugin": "^3.6.0",
-    "@typescript-eslint/parser": "^3.6.0",
-    "copyfiles": "^2.3.0",
-    "eslint": "^7.4.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "fast-node-logger": "^1.4.2",
-    "jasmine": "^3.1.0",
-    "prettier": "^2.0.5",
-    "rewire": "^5.0.0",
-    "typescript": "^3.9.6"
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.20",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
+    "auto-changelog": "^2.2.1",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "javascript-obfuscator": "^2.10.1",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "pkg": "^4.4.9",
+    "prettier": "^2.2.1",
+    "snyk": "^1.437.3",
+    "ts-jest": "^26.4.4",
+    "typedoc": "^0.20.14",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "@rmp135/sql-ts": "^1.7.0"
   }
 }

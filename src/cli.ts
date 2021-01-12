@@ -1,10 +1,9 @@
 import * as fs from "fs";
-import * as yargs from "yargs";
+import yargs from "yargs";
 import * as path from "path";
-import sqlts, { Config, toObject } from "./index";
-import * as DatabaseTasks from "./DatabaseTasks";
-import { DecoratedTable } from "./Typings";
 import * as Handlebars from "handlebars";
+
+import { Config, DatabaseTasks, toObject, Typings } from "./index";
 
 const args = yargs(process.argv)
   .alias("c", "config")
@@ -14,48 +13,66 @@ const args = yargs(process.argv)
 const configPath = path.join(process.cwd(), args.config as string);
 
 const config = JSON.parse(fs.readFileSync(configPath, "utf8")) as Config;
-(async () => {
-  if (config.separateTableFile) {
-    const decoratedDatabase = await toObject(config);
 
-    const eachTable = decoratedDatabase.tables.map(el =>
-      DatabaseTasks.stringifyDatabase({ tables: [el] }, config)
-    );
-    const pathDir = path.join(process.cwd(), "generated");
+let outDirPath = path.join(process.cwd(), "generated");
+if (typeof config.folder === "string") {
+  outDirPath = config.folder;
+} else {
+  config.folder = outDirPath;
+}
 
-    /**create directory if not exist */
-    try {
-      fs.mkdirSync(pathDir);
-    } catch (error) {
-      if (error.code !== "EEXIST") {
-        console.log(error);
-      }
-    }
+let createIndexFile = true;
+if (typeof config.createIndexFile === "boolean") {
+  createIndexFile = config.createIndexFile;
+}
 
-    eachTable.forEach((el, index) => {
-      const filePath = path.join(
-        pathDir,
-        `${decoratedDatabase.tables[index].name}.ts`
-      );
+/** Override default template */
+const defaultTemplatePath = path.join(
+  __dirname,
+  "..",
+  "templates",
+  "interfaces-and-functions.handlebars",
+);
+if (typeof config.template !== "string") {
+  config.template = defaultTemplatePath;
+}
 
-      fs.writeFileSync(filePath, el);
-    });
-    if (config.createIndexFile) {
-      const compiler = Handlebars.compile<{ tables: DecoratedTable[] }>(
-        `{{#each tables as |table|}}
-        export * from "./{{table.name}}";
-        {{/each}}`
-      );
-      const indexContent = compiler({ tables: decoratedDatabase.tables });
-      const filePath = path.join(pathDir, `index.ts`);
-      fs.writeFileSync(filePath, indexContent);
-    }
-    console.log(`files written in ${pathDir}`);
-  } else {
-    const output = await sqlts.toTypeScript(config);
-    const fileName = `${config.filename || "Database"}.ts`;
-    const outFile = path.join(process.cwd(), fileName);
-    fs.writeFileSync(outFile, output);
-    console.log(`Definition file written as ${outFile}`);
+/** Create out directory if not exist */
+try {
+  fs.mkdirSync(outDirPath);
+} catch (error) {
+  if (error.code !== "EEXIST") {
+    console.log(error);
   }
+}
+
+(async () => {
+  const decoratedDatabase = await toObject(config);
+
+  const { tables } = decoratedDatabase;
+
+  const eachTable = tables.map((el) =>
+    // TODO: add enums instead of ignoring it
+    DatabaseTasks.stringifyDatabase({ tables: [el], enums: [] }, config),
+  );
+
+  eachTable.forEach((el, index) => {
+    const filePath = path.join(
+      outDirPath,
+      `${decoratedDatabase.tables[index].name}.ts`,
+    );
+
+    fs.writeFileSync(filePath, el);
+  });
+  if (createIndexFile) {
+    const compiler = Handlebars.compile<{
+      tables: Typings.DecoratedTable[];
+    }>(`{{#each tables as |table|}}
+export * from "./{{table.name}}";
+{{/each}}`);
+    const indexContent = compiler({ tables: decoratedDatabase.tables });
+    const filePath = path.join(outDirPath, `index.ts`);
+    fs.writeFileSync(filePath, indexContent);
+  }
+  console.log(`files written in directory ${outDirPath}`);
 })();
