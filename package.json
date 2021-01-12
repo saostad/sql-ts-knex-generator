@@ -24,7 +24,7 @@
     "tsc": "tsc",
     "tsc:watch": "tsc --watch",
     "vulnerability-scan": "snyk test",
-    "prepublishOnly": "npm-run-all -s tsc gen-docs",
+    "prepublishOnly": "npm-run-all -s tsc vulnerability-scan gen-docs",
     "postpublish": "npm-run-all -s tag gen-changelog",
     "obfuscate": "javascript-obfuscator ./dist --output ./obfuscated --compact true --ignore-require-imports true",
     "precompile": "npm-run-all -s tsc obfuscate",
