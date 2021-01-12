@@ -131,13 +131,20 @@ All notable changes to this project will be documented in this file. Dates are d
 - Simplified SQL Server is nullable check. [`225c5a9`](https://github.com/saostad/sql-ts-knex-generator/commit/225c5a9f1404caf497a32eeb59a5aee436d74897)
 - Fixed test covering fallback. [`1ba32d1`](https://github.com/saostad/sql-ts-knex-generator/commit/1ba32d1e693b605781d1b7c6b82bc6d9e56190e5)
 
-#### [0.2.0](https://github.com/saostad/sql-ts-knex-generator/compare/v0.2.0-beta01...0.2.0)
+#### [0.2.0](https://github.com/saostad/sql-ts-knex-generator/compare/v0.2.0-beta02...0.2.0)
 
 > 23 July 2017
 
 - Initial commit. [`b44a27e`](https://github.com/saostad/sql-ts-knex-generator/commit/b44a27ea26a055c5bd9db02c811d3d490f309999)
 - Modified packages. [`c4cace4`](https://github.com/saostad/sql-ts-knex-generator/commit/c4cace458988c9e94550842552354a3771ea6be8)
 - Added tests for refactored system. [`d39e2f5`](https://github.com/saostad/sql-ts-knex-generator/commit/d39e2f58e09fb3b08e1db230b71d50af66ec8849)
+
+#### [v0.2.0-beta02](https://github.com/saostad/sql-ts-knex-generator/compare/v0.2.0-beta01...v0.2.0-beta02)
+
+> 12 January 2021
+
+- doc: change log [`6eb0a84`](https://github.com/saostad/sql-ts-knex-generator/commit/6eb0a844aaddce39ef32e20eb911c89b3278f9e2)
+- fix: added drivers as required packages [`0820c15`](https://github.com/saostad/sql-ts-knex-generator/commit/0820c1565645e932a3c9ef679a7ed0349091ca20)
 
 #### [v0.2.0-beta01](https://github.com/saostad/sql-ts-knex-generator/compare/0.1.2...v0.2.0-beta01)
 
