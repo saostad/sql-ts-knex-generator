@@ -10,7 +10,9 @@ Supports the following databases: MySQL, Microsoft SQL Server, SQLite and Postgr
 
 ## Config file options
 
-[Config file options](https://github.com/rmp135/sql-ts#config)
+[Config file options](https://saostad.github.io/sql-ts-knex-generator/interfaces/config.html)
+OR
+[sql-ts docs](https://github.com/rmp135/sql-ts#config)
 
 ### Credits:
 
