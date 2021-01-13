@@ -8,6 +8,10 @@ Supports the following databases: MySQL, Microsoft SQL Server, SQLite and Postgr
 
 `npx sql-ts-knex-generator -c ./config.json`
 
+It will create a folder and generate a file for each table containing CRUD (create, read, update, delete) functions based on DB schema.
+
+It respects nullable and required fields.
+
 ## Config file options
 
 [Config file options](https://saostad.github.io/sql-ts-knex-generator/interfaces/config.html)

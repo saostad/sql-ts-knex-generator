@@ -52,6 +52,7 @@ if (typeof config.template !== "string") {
 /** Create out directory if not exist */
 try {
     fs.mkdirSync(outDirPath);
+    console.log(`${outDirPath} folder has been created.`);
 }
 catch (error) {
     if (error.code !== "EEXIST") {
@@ -59,11 +60,14 @@ catch (error) {
     }
 }
 (async () => {
+    console.log(`Connecting to db...`);
     const decoratedDatabase = await index_1.toObject(config);
     const { tables } = decoratedDatabase;
+    console.log(`Analyzing table's schema...`);
     const eachTable = tables.map((el) => 
     // TODO: add enums instead of ignoring it
     index_1.DatabaseTasks.stringifyDatabase({ tables: [el], enums: [] }, config));
+    console.log(`Creating TS files...`);
     eachTable.forEach((el, index) => {
         const filePath = path.join(outDirPath, `${decoratedDatabase.tables[index].name}.ts`);
         fs.writeFileSync(filePath, el);
@@ -76,6 +80,7 @@ export * from "./{{table.name}}";
         const filePath = path.join(outDirPath, `index.ts`);
         fs.writeFileSync(filePath, indexContent);
     }
-    console.log(`files written in directory ${outDirPath}`);
+    console.log(`Files written in directory ${outDirPath}`);
+    console.log(`You can use "import {} form 'index.ts'"`);
 })();
 //# sourceMappingURL=cli.js.map
