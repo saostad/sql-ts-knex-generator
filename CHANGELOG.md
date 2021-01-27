@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.5.3](https://github.com/saostad/sql-ts-knex-generator/compare/v1.5.2...v1.5.3)
+
+> 27 January 2021
+
+- fix: missing enums parameter [`ba29610`](https://github.com/saostad/sql-ts-knex-generator/commit/ba2961033ba269027b6fa732c981d77a92bdc18c)
+- doc: change log [`e224939`](https://github.com/saostad/sql-ts-knex-generator/commit/e224939cd57d40c4a401132d1b8b1bdce5535a30)
+
 #### [v1.5.2](https://github.com/saostad/sql-ts-knex-generator/compare/v1.5.1...v1.5.2)
 
 > 13 January 2021
