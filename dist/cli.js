@@ -62,17 +62,18 @@ catch (error) {
 (async () => {
     console.log(`Connecting to db...`);
     const decoratedDatabase = await index_1.toObject(config);
-    const { tables } = decoratedDatabase;
+    const { tables, enums } = decoratedDatabase;
     console.log(`Analyzing table's schema...`);
     const eachTable = tables.map((el) => 
     // TODO: add enums instead of ignoring it
-    index_1.DatabaseTasks.stringifyDatabase({ tables: [el], enums: [] }, config));
-    console.log(`Creating TS files...`);
+    index_1.DatabaseTasks.stringifyDatabase({ tables: [el], enums }, config));
+    console.log(`Creating .ts files...`);
     eachTable.forEach((el, index) => {
         const filePath = path.join(outDirPath, `${decoratedDatabase.tables[index].name}.ts`);
         fs.writeFileSync(filePath, el);
     });
     if (createIndexFile) {
+        console.log(`Creating index file...`);
         const compiler = Handlebars.compile(`{{#each tables as |table|}}
 export * from "./{{table.name}}";
 {{/each}}`);

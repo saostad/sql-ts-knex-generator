@@ -52,16 +52,16 @@ try {
 
   const decoratedDatabase = await toObject(config);
 
-  const { tables } = decoratedDatabase;
+  const { tables, enums } = decoratedDatabase;
 
   console.log(`Analyzing table's schema...`);
 
   const eachTable = tables.map((el) =>
     // TODO: add enums instead of ignoring it
-    DatabaseTasks.stringifyDatabase({ tables: [el], enums: [] }, config),
+    DatabaseTasks.stringifyDatabase({ tables: [el], enums }, config),
   );
 
-  console.log(`Creating TS files...`);
+  console.log(`Creating .ts files...`);
 
   eachTable.forEach((el, index) => {
     const filePath = path.join(
@@ -72,6 +72,7 @@ try {
     fs.writeFileSync(filePath, el);
   });
   if (createIndexFile) {
+    console.log(`Creating index file...`);
     const compiler = Handlebars.compile<{
       tables: Typings.DecoratedTable[];
     }>(`{{#each tables as |table|}}
