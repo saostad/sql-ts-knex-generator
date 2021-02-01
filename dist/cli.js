@@ -64,9 +64,7 @@ catch (error) {
     const decoratedDatabase = await index_1.toObject(config);
     const { tables, enums } = decoratedDatabase;
     console.log(`Analyzing table's schema...`);
-    const eachTable = tables.map((el) => 
-    // TODO: add enums instead of ignoring it
-    index_1.DatabaseTasks.stringifyDatabase({ tables: [el], enums }, config));
+    const eachTable = tables.map((el) => index_1.DatabaseTasks.stringifyDatabase({ tables: [el], enums }, config));
     console.log(`Creating .ts files...`);
     eachTable.forEach((el, index) => {
         const filePath = path.join(outDirPath, `${decoratedDatabase.tables[index].name}.ts`);

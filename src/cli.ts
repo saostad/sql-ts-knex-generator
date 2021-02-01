@@ -57,7 +57,6 @@ try {
   console.log(`Analyzing table's schema...`);
 
   const eachTable = tables.map((el) =>
-    // TODO: add enums instead of ignoring it
     DatabaseTasks.stringifyDatabase({ tables: [el], enums }, config),
   );
 
