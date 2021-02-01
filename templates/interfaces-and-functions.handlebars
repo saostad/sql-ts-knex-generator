@@ -20,7 +20,7 @@ interface GetDataInput {
 export async function get{{name}}AllFields({
   client,
   where,
-  whereRaw?
+  whereRaw,
   orderBy,
 }: GetDataInput){
 const query = client<{{interfaceName}}>("{{name}}");
@@ -94,7 +94,7 @@ interface DeleteFnInput {
   where?: Partial<{{interfaceName}}>;
   whereRaw?: string;
 }
-export async function delete{{name}} ( {client, where}: DeleteFnInput){
+export async function delete{{name}} ( {client, where, whereRaw}: DeleteFnInput){
   const query = client<{{interfaceName}}>("{{name}}")
     
   if(where){
@@ -114,7 +114,7 @@ interface UpdateFnInput {
   where?: Partial<{{interfaceName}}>;
   whereRaw?: string;
 }
-export async function update{{name}} ({client, data, where}: UpdateFnInput) {
+export async function update{{name}} ({client, data, where, whereRaw}: UpdateFnInput) {
   const query = client<{{interfaceName}}>("{{name}}");
   
   if(where){
