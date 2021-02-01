@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.6.0](https://github.com/saostad/sql-ts-knex-generator/compare/v1.5.3...v1.6.0)
+
+> 1 February 2021
+
+- feat: whereRaw added to queries [`17e53f9`](https://github.com/saostad/sql-ts-knex-generator/commit/17e53f94a359be6e3595395ace2534fc2bb1a94b)
+- doc: change log [`1e9f97e`](https://github.com/saostad/sql-ts-knex-generator/commit/1e9f97e6cf1df046a3f6e83edf8b975d4bcec150)
+
 #### [v1.5.3](https://github.com/saostad/sql-ts-knex-generator/compare/v1.5.2...v1.5.3)
 
 > 27 January 2021
