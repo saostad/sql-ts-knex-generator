@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.6.2](https://github.com/saostad/sql-ts-knex-generator/compare/v1.6.1...v1.6.2)
+
+> 2 February 2021
+
+- fix: typing problem in optional return interfaces [`e14a40f`](https://github.com/saostad/sql-ts-knex-generator/commit/e14a40f8354d02b4696fcd818dc70ed3d360660d)
+- doc: change log [`d272cdc`](https://github.com/saostad/sql-ts-knex-generator/commit/d272cdc5c7aaf963e57eeedc58fabc643a7ca5d7)
+
 #### [v1.6.1](https://github.com/saostad/sql-ts-knex-generator/compare/v1.6.0...v1.6.1)
 
 > 1 February 2021
