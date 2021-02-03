@@ -1,10 +1,20 @@
+{{#*inline "inputInterfacePartial"}}
+interface {{interfaceName}}Input {
+  {{#each additionalProperties as |prop|}}
+  {{prop}}
+  {{/each}}
+  {{#each columns}}
+  "{{propertyName}}"{{#if optional}}?{{/if}}: {{propertyType}} {{#if nullable}}| null {{/if}}
+  {{/each}}
+}
+{{/inline}}
 {{#*inline "interfacePartial"}}
 export interface {{interfaceName}} {
   {{#each additionalProperties as |prop|}}
   {{prop}}
   {{/each}}
   {{#each columns}}
-  "{{propertyName}}"{{#if optional}}?{{/if}}: {{propertyType}} {{#if nullable}}| null {{/if}}
+  "{{propertyName}}": {{propertyType}} {{#if nullable}}| null {{/if}}
   {{/each}}
 }
 {{/inline}}
@@ -36,24 +46,24 @@ const query = client<{{interfaceName}}>("{{name}}");
   return query;
 }
 {{/inline}}
-{{#*inline "funcGetBasicFieldsPartial"}}
-export async function get{{name}}BasicFields({
+{{#*inline "funcGetRequiredFieldsPartial"}}
+export async function get{{name}}RequiredFields({
     client,
     where,
     whereRaw,
     orderBy,
   }: GetDataInput) {
-  type Get{{name}}BasicFieldsOutput = {
+  type Get{{name}}RequiredFieldsOutput = {
     {{#each columns}}
     {{#unless nullable}} 
-    "{{propertyName}}"{{#if optional}}?{{/if}}: {{propertyType}} {{#if nullable}}| null {{/if}}
+    "{{propertyName}}": {{propertyType}}
     {{/unless}}
     {{/each}}
   }
 
   const query = client
   .from<{{interfaceName}}>("{{name}}")
-  .select<Get{{name}}BasicFieldsOutput[]>(
+  .select<Get{{name}}RequiredFieldsOutput[]>(
     {{#each columns}}
     {{#unless nullable}} 
     "{{propertyName}}",
@@ -76,7 +86,7 @@ export async function get{{name}}BasicFields({
 {{#*inline "funcAddPartial"}}
 interface AddFnInput {
   client: Knex;
-  data: {{interfaceName}};
+  data: {{interfaceName}}Input;
 }
 export async function add{{name}} ( {client, data}: AddFnInput){
   return client<{{interfaceName}}>("{{name}}")
@@ -110,7 +120,7 @@ export async function delete{{name}} ( {client, where, whereRaw}: DeleteFnInput)
 {{#*inline "funcUpdatePartial"}}
 interface UpdateFnInput {
   client: Knex;
-  data: Partial<{{interfaceName}}>;
+  data: Partial<{{interfaceName}}Input>;
   where?: Partial<{{interfaceName}}>;
   whereRaw?: string;
 }
@@ -139,9 +149,10 @@ import Knex from 'knex';
 {{#if config.tableAsNamespace}}
 {{#each grouped.dbo.tables as |table|}}
 export namespace {{table.name}} {
-  {{> interfacePartial table}}  
+  {{> inputInterfacePartial table}}  
+  {{> interfacePartial table}}
   {{> funcGetAllFieldsPartial table}}
-  {{> funcGetBasicFieldsPartial table}}
+  {{> funcGetRequiredFieldsPartial table}}
   {{> funcAddPartial table}}
   {{> funcDeletePartial table}}
   {{> funcUpdatePartial table}}
@@ -149,9 +160,10 @@ export namespace {{table.name}} {
 }
 {{else}}
 {{#each grouped.dbo.tables as |table|}}
+{{> inputInterfacePartial table}}
 {{> interfacePartial table}}
 {{> funcGetAllFieldsPartial table}}
-{{> funcGetBasicFieldsPartial table}}
+{{> funcGetRequiredFieldsPartial table}}
 {{> funcAddPartial table}}
 {{> funcDeletePartial table}}
 {{> funcUpdatePartial table}}
