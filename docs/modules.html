@@ -61,6 +61,14 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>References</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-reference"><a href="modules.html#column" class="tsd-kind-icon">Column</a></li>
+								<li class="tsd-kind-reference"><a href="modules.html#database" class="tsd-kind-icon">Database</a></li>
+								<li class="tsd-kind-reference"><a href="modules.html#table" class="tsd-kind-icon">Table</a></li>
+							</ul>
+						</section>
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Namespaces</h3>
 							<ul class="tsd-index-list">
@@ -71,10 +79,7 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-is-external"><a href="interfaces/column.html" class="tsd-kind-icon">Column</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/config.html" class="tsd-kind-icon">Config</a></li>
-								<li class="tsd-kind-interface tsd-is-external"><a href="interfaces/database.html" class="tsd-kind-icon">Database</a></li>
-								<li class="tsd-kind-interface tsd-is-external"><a href="interfaces/table.html" class="tsd-kind-icon">Table</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-external">
@@ -92,6 +97,24 @@
 							</ul>
 						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>References</h2>
+				<section class="tsd-panel tsd-member tsd-kind-reference">
+					<a name="column" class="tsd-anchor"></a>
+					<h3>Column</h3>
+					Re-exports <a href="interfaces/typings.column.html">Column</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference">
+					<a name="database" class="tsd-anchor"></a>
+					<h3>Database</h3>
+					Re-exports <a href="interfaces/typings.database.html">Database</a>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-reference">
+					<a name="table" class="tsd-anchor"></a>
+					<h3>Table</h3>
+					Re-exports <a href="interfaces/typings.table.html">Table</a>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
@@ -127,7 +150,7 @@
 					<a name="fromobject" class="tsd-anchor"></a>
 					<h3>from<wbr>Object</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">from<wbr>Object<span class="tsd-signature-symbol">(</span>database<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">DecoratedDatabase</span>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon">from<wbr>Object<span class="tsd-signature-symbol">(</span>database<span class="tsd-signature-symbol">: </span><a href="interfaces/typings.decorateddatabase.html" class="tsd-signature-type" data-tsd-kind="Interface">DecoratedDatabase</a>, config<span class="tsd-signature-symbol">: </span><a href="interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -144,13 +167,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>database: <span class="tsd-signature-type">DecoratedDatabase</span></h5>
+									<h5>database: <a href="interfaces/typings.decorateddatabase.html" class="tsd-signature-type" data-tsd-kind="Interface">DecoratedDatabase</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The database object as exported from sql-ts</p>
 									</div>
 								</li>
 								<li>
-									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<h5>config: <a href="interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The configuration to generate the TypeScript from.</p>
 									</div>
@@ -164,7 +187,7 @@
 					<a name="toobject" class="tsd-anchor"></a>
 					<h3>to<wbr>Object</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Object<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DecoratedDatabase</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Object<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/typings.decorateddatabase.html" class="tsd-signature-type" data-tsd-kind="Interface">DecoratedDatabase</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -181,13 +204,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<h5>config: <a href="interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The configuration to generate this database with.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">DecoratedDatabase</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="interfaces/typings.decorateddatabase.html" class="tsd-signature-type" data-tsd-kind="Interface">DecoratedDatabase</a><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>The Database definition as a plain JavaScript object.</p>
 						</li>
 					</ul>
@@ -196,7 +219,7 @@
 					<a name="totypescript" class="tsd-anchor"></a>
 					<h3>to<wbr>Type<wbr>Script</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Type<wbr>Script<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Config</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Type<wbr>Script<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -213,7 +236,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <span class="tsd-signature-type">Config</span></h5>
+									<h5>config: <a href="interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The configuration to generate this database with.</p>
 									</div>
@@ -232,21 +255,30 @@
 					<li class="current ">
 						<a href="modules.html">Exports</a>
 					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-namespace tsd-is-external">
+						<a href="modules/databasetasks.html">Database<wbr>Tasks</a>
+					</li>
+					<li class=" tsd-kind-namespace tsd-is-external">
+						<a href="modules/typings.html">Typings</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="interfaces/column.html" class="tsd-kind-icon">Column</a>
+					<li class=" tsd-kind-reference">
+						<a href="modules.html#column" class="tsd-kind-icon">Column</a>
+					</li>
+					<li class=" tsd-kind-reference">
+						<a href="modules.html#database" class="tsd-kind-icon">Database</a>
+					</li>
+					<li class=" tsd-kind-reference">
+						<a href="modules.html#table" class="tsd-kind-icon">Table</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/config.html" class="tsd-kind-icon">Config</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="interfaces/database.html" class="tsd-kind-icon">Database</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="interfaces/table.html" class="tsd-kind-icon">Table</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-external">
 						<a href="modules.html#default" class="tsd-kind-icon">default</a>

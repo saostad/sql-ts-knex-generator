@@ -65,6 +65,107 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-namespace tsd-is-external"><a href="databasetasks.html#decoratedatabase" class="tsd-kind-icon">decorate<wbr>Database</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-namespace tsd-is-external"><a href="databasetasks.html#stringifydatabase" class="tsd-kind-icon">stringify<wbr>Database</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace tsd-is-external">
+					<a name="decoratedatabase" class="tsd-anchor"></a>
+					<h3>decorate<wbr>Database</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">decorate<wbr>Database<span class="tsd-signature-symbol">(</span>database<span class="tsd-signature-symbol">: </span><a href="../interfaces/typings.database.html" class="tsd-signature-type" data-tsd-kind="Interface">Database</a>, config<span class="tsd-signature-symbol">: </span><a href="../interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/typings.decorateddatabase.html" class="tsd-signature-type" data-tsd-kind="Interface">DecoratedDatabase</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@rmp135/sql-ts/dist/DatabaseTasks.d.ts:19</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Decorates the database object before sending to template compiler.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>export</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>database: <a href="../interfaces/typings.database.html" class="tsd-signature-type" data-tsd-kind="Interface">Database</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The Database definition.</p>
+									</div>
+								</li>
+								<li>
+									<h5>config: <a href="../interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The configuration to use.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/typings.decorateddatabase.html" class="tsd-signature-type" data-tsd-kind="Interface">DecoratedDatabase</a></h4>
+							<p>The decorated database definition.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-namespace tsd-is-external">
+					<a name="stringifydatabase" class="tsd-anchor"></a>
+					<h3>stringify<wbr>Database</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-namespace tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">stringify<wbr>Database<span class="tsd-signature-symbol">(</span>database<span class="tsd-signature-symbol">: </span><a href="../interfaces/typings.decorateddatabase.html" class="tsd-signature-type" data-tsd-kind="Interface">DecoratedDatabase</a>, config<span class="tsd-signature-symbol">: </span><a href="../interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@rmp135/sql-ts/dist/DatabaseTasks.d.ts:10</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts a Database definition to TypeScript.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>export</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>database: <a href="../interfaces/typings.decorateddatabase.html" class="tsd-signature-type" data-tsd-kind="Interface">DecoratedDatabase</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The Database definition.</p>
+									</div>
+								</li>
+								<li>
+									<h5>config: <a href="../interfaces/typings.config.html" class="tsd-signature-type" data-tsd-kind="Interface">Config</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The configuration to use.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>A TypeScript definition, optionally wrapped in a namespace.</p>
+						</li>
+					</ul>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
@@ -72,10 +173,25 @@
 					<li class=" ">
 						<a href="../modules.html">Exports</a>
 					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class="current tsd-kind-namespace tsd-is-external">
+						<a href="databasetasks.html">Database<wbr>Tasks</a>
+					</li>
+					<li class=" tsd-kind-namespace tsd-is-external">
+						<a href="typings.html">Typings</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-namespace tsd-is-external">
+						<a href="databasetasks.html#decoratedatabase" class="tsd-kind-icon">decorate<wbr>Database</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-namespace tsd-is-external">
+						<a href="databasetasks.html#stringifydatabase" class="tsd-kind-icon">stringify<wbr>Database</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
