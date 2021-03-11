@@ -144,7 +144,7 @@ export async function update{{name}} ({client, data, where, whereRaw}: UpdateFnI
 * Rerun sql-ts to regenerate this file.
 */
 
-import Knex from 'knex';
+import { Knex } from "knex";
 
 {{#if config.tableAsNamespace}}
 {{#each grouped.dbo.tables as |table|}}
