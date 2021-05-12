@@ -140,12 +140,10 @@ export async function update{{name}} ({client, data, where, whereRaw}: UpdateFnI
 {{#*inline "funcBatchInsertPartial"}}
 interface BatchInsertFnInput {
   client: Knex;
-  data: {{interfaceName}}Input;
+  data: {{interfaceName}}Input[];
 }
-export async function batchInsert{{name}} ({client, data}: BatchInsertFnInput) {
-  const query = client<{{interfaceName}}>("{{name}}"); 
-
-  return query.batchInsert("{{name}}", data);
+export async function batchInsert{{name}}({client, data}: BatchInsertFnInput) {
+  return client.batchInsert("{{name}}", data);
 }
 {{/inline}}
 /* eslint-disable @typescript-eslint/camelcase */
