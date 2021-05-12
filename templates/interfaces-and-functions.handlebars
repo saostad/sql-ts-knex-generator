@@ -88,7 +88,7 @@ interface AddFnInput {
   client: Knex;
   data: {{interfaceName}}Input;
 }
-export async function add{{name}} ( {client, data}: AddFnInput){
+export async function add{{name}}( {client, data}: AddFnInput){
   return client<{{interfaceName}}>("{{name}}")
     .insert(data)
     .returning([
@@ -104,7 +104,7 @@ interface DeleteFnInput {
   where?: Partial<{{interfaceName}}>;
   whereRaw?: string;
 }
-export async function delete{{name}} ( {client, where, whereRaw}: DeleteFnInput){
+export async function delete{{name}}( {client, where, whereRaw}: DeleteFnInput){
   const query = client<{{interfaceName}}>("{{name}}")
     
   if(where){
@@ -124,7 +124,7 @@ interface UpdateFnInput {
   where?: Partial<{{interfaceName}}>;
   whereRaw?: string;
 }
-export async function update{{name}} ({client, data, where, whereRaw}: UpdateFnInput) {
+export async function update{{name}}({client, data, where, whereRaw}: UpdateFnInput) {
   const query = client<{{interfaceName}}>("{{name}}");
   
   if(where){
