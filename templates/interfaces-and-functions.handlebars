@@ -137,6 +137,17 @@ export async function update{{name}} ({client, data, where, whereRaw}: UpdateFnI
   return query.update(data);
 }
 {{/inline}}
+{{#*inline "funcBatchInsertPartial"}}
+interface BatchInsertFnInput {
+  client: Knex;
+  data: {{interfaceName}}Input;
+}
+export async function batchInsert{{name}} ({client, data}: BatchInsertFnInput) {
+  const query = client<{{interfaceName}}>("{{name}}"); 
+
+  return query.batchInsert({{table.name}}, data);
+}
+{{/inline}}
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/class-name-casing */
 /*
