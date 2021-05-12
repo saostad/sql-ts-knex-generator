@@ -1,6 +1,6 @@
 {
   "name": "sql-ts-knex-generator",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "main": "./dist/index.js",
   "description": "A simple command line tool to generate typescript CRUD operations from database schemas.",
   "bin": "./bin/sql-ts-knex-generator",

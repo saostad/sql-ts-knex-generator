@@ -8,6 +8,27 @@ Supports the following databases: MySQL, Microsoft SQL Server, SQLite and Postgr
 
 `npx sql-ts-knex-generator -c ./config.json`
 
+### example config file:
+
+```json
+{
+  "client": "mssql",
+  "tables": ["dbo.TABLE_NAME"],
+  "connection": {
+    "server": "********",
+    "database": "*******",
+    "user": "*******",
+    "password": "********",
+    "options": {
+      "encrypt": true,
+      "enableArithAbort": true
+    },
+    "requestTimeout": 15000,
+    "connectionTimeout": 15000
+  }
+}
+```
+
 It will create a folder and generate a file for each table containing CRUD (create, read, update, delete) functions based on DB schema.
 
 It respects nullable and required fields.

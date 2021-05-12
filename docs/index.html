@@ -67,6 +67,26 @@
 					<h2>How to use</h2>
 				</a>
 				<p><code>npx sql-ts-knex-generator -c ./config.json</code></p>
+				<a href="#example-config-file" id="example-config-file" style="color: inherit; text-decoration: none;">
+					<h3>example config file:</h3>
+				</a>
+				<pre><code class="language-json"><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;client&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;mssql&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;tables&quot;</span><span style="color: #000000">: [</span><span style="color: #A31515">&quot;dbo.TABLE_NAME&quot;</span><span style="color: #000000">],</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">&quot;connection&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;server&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;********&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;database&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;*******&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;user&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;*******&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;password&quot;</span><span style="color: #000000">: </span><span style="color: #A31515">&quot;********&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;options&quot;</span><span style="color: #000000">: {</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;encrypt&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #0451A5">&quot;enableArithAbort&quot;</span><span style="color: #000000">: </span><span style="color: #0000FF">true</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;requestTimeout&quot;</span><span style="color: #000000">: </span><span style="color: #098658">15000</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #0451A5">&quot;connectionTimeout&quot;</span><span style="color: #000000">: </span><span style="color: #098658">15000</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+</code></pre>
 				<p>It will create a folder and generate a file for each table containing CRUD (create, read, update, delete) functions based on DB schema.</p>
 				<p>It respects nullable and required fields.</p>
 				<a href="#config-file-options" id="config-file-options" style="color: inherit; text-decoration: none;">
