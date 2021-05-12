@@ -145,7 +145,7 @@ interface BatchInsertFnInput {
 export async function batchInsert{{name}} ({client, data}: BatchInsertFnInput) {
   const query = client<{{interfaceName}}>("{{name}}"); 
 
-  return query.batchInsert({{table.name}}, data);
+  return query.batchInsert({{name}}, data);
 }
 {{/inline}}
 /* eslint-disable @typescript-eslint/camelcase */
