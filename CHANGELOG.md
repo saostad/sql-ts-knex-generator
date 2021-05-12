@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.8.0-beta04](https://github.com/saostad/sql-ts-knex-generator/compare/v1.8.0-beta03...v1.8.0-beta04)
+
+> 12 May 2021
+
+- doc: change log [`835b4e2`](https://github.com/saostad/sql-ts-knex-generator/commit/835b4e22442582727eb7966e9d758fe665d42d6a)
+- fix: bug in generated code [`5997c11`](https://github.com/saostad/sql-ts-knex-generator/commit/5997c11209efba6a801e9bdd2c6016bc84386908)
+
 #### [v1.8.0-beta03](https://github.com/saostad/sql-ts-knex-generator/compare/v1.8.0-beta02...v1.8.0-beta03)
 
 > 12 May 2021
